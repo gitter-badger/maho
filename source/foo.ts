@@ -1,3 +1,3 @@
 export class Foo {
-  bar: string = "bar";
+  bar: string = 'bar';
 }
