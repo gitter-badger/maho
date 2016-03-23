@@ -1,0 +1,25 @@
+{
+  "name": "maho",
+  "version": "0.0.1",
+  "description": "Fast autocomplete provider.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wanderer06/maho.git"
+  },
+  "keywords": [
+    "fast",
+    "autocomplete",
+    "typescript"
+  ],
+  "author": "Andrei Nemes",
+  "contributors": ["George Nemes", "Andrei Nemes"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wanderer06/maho/issues"
+  },
+  "homepage": "https://github.com/wanderer06/maho#readme"
+}
