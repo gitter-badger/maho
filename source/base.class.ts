@@ -1,7 +1,7 @@
 /// <reference path="../typings/main.d.ts" />
 
 import { IMahoConfig } from './config.interface';
-import { defaultConfig } from './default.config';
+import { defaultConfig } from './default.const';
 import { assign } from 'underscore';
 
 /**
