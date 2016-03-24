@@ -9,6 +9,7 @@ export interface IMahoConfig {
    * Time to wait (ms) before executing logic
    *
    * @type {number}
+   * @default 300
    */
   delay?: number;
 }

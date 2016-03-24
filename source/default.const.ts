@@ -5,6 +5,7 @@ import { IMahoConfig } from './config.interface';
  *
  * @export
  * @const
+ * @default
  * @type {IMahoConfig}
  */
 export const defaultConfig: IMahoConfig = {
