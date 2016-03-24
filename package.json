@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Fast autocomplete provider.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack && jsdoc -d docs dist/maho.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wanderer06/maho.git"
@@ -28,8 +30,10 @@
   },
   "homepage": "https://github.com/wanderer06/maho#readme",
   "dependencies": {
+    "jsdoc": "^3.4.0",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.9",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.14"
   }
 }
