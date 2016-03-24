@@ -25,6 +25,7 @@ export abstract class MahoBase {
    * Mahō internal search string
    * Used to filter against results
    *
+   * @protected
    * @type {string}
    */
   protected _search: string;
