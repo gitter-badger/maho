@@ -1,8 +1,8 @@
 module.exports = {
-  entry: "./source/main.ts",
+  entry: './source/main.ts',
   output: {
-    path: "dist",
-    filename: "maho.js"
+    path: 'dist',
+    filename: 'maho.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.ts', '.js']
@@ -11,7 +11,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: "ts-loader"
+        loader: 'ts-loader'
       }
     ]
   }

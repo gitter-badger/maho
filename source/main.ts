@@ -1,5 +1,4 @@
-import { Foo } from './foo';
+import { Maho } from './maho.class';
 
-let x: () => number = () => 10;
-let y = new Foo();
-console.log(y.bar);
+let maho: Maho = new Maho(document.body);
+maho.search = 'foo';

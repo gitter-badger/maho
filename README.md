@@ -1,3 +1,3 @@
-#maho
+#mahō
 
-**Maho** is a fast autocomplete provider.
+**Mahō** is a fast autocomplete provider.
