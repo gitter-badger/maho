@@ -33,7 +33,7 @@ export class Maho extends MahoBase {
    */
   constructor(node: Element, config?: IMahoConfig)
   constructor(element: (Element | string), config?: IMahoConfig) {
-    super();
+    super(config);
 
     if (typeof element === 'string') {
       // todo: better selector
@@ -44,7 +44,8 @@ export class Maho extends MahoBase {
   }
 
   /**
-   * Search string
+   * Search string accessor
+   *
    * @type {string}
    */
   get search(): string {

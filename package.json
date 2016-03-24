@@ -29,6 +29,7 @@
   "homepage": "https://github.com/wanderer06/maho#readme",
   "dependencies": {
     "ts-loader": "^0.8.1",
-    "typescript": "^1.8.9"
+    "typescript": "^1.8.9",
+    "underscore": "^1.8.3"
   }
 }

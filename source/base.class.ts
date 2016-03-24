@@ -1,7 +1,8 @@
-/**
- * @todo Update abstract members once TypeScript 2.0 is released
- * @see {@link https://github.com/Microsoft/TypeScript/issues/4669|Issue #4669}
- */
+/// <reference path="../typings/main.d.ts" />
+
+import { IMahoConfig } from './config.interface';
+import { defaultConfig } from './default.config';
+import { assign } from 'underscore';
 
 /**
  * Base class for all Mahō components
@@ -13,9 +14,41 @@
 export abstract class MahoBase {
 
   /**
-   * Mahō's internal search string
-   * Used to filter against results
+   * Mahō internal configuration object
+   * Dictates how the component behaves
+   *
+   * @protected
+   * @type {IMahoConfig}
    */
-  /*abstract*/search: string;
+  protected _config: IMahoConfig;
+  /**
+   * Mahō internal search string
+   * Used to filter against results
+   *
+   * @type {string}
+   */
+  protected _search: string;
+
+  /**
+   * Root Mahō constructor.
+   *
+   * @param {IMahoConfig} [config] configuration options
+   */
+  constructor(config?: IMahoConfig) {
+    this.config = config;
+  }
+
+  /**
+   * Configuration object accessor
+   *
+   * @type {IMahoConfig}
+   */
+  get config(): IMahoConfig {
+    return this._config;
+  }
+
+  set config(value: IMahoConfig) {
+    this._config = assign({}, defaultConfig, value);
+  }
 
 }
