@@ -6,34 +6,22 @@ import { assign } from 'underscore';
 
 /**
  * Base class for all Mahō components
- *
- * @export
- * @abstract
- * @class MahoBase
  */
 export abstract class MahoBase {
 
   /**
    * Mahō internal configuration object
    * Dictates how the component behaves
-   *
-   * @protected
-   * @type {IMahoConfig}
    */
   protected _config: IMahoConfig;
   /**
    * Mahō internal search string
    * Used to filter against results
-   *
-   * @protected
-   * @type {string}
    */
   protected _search: string;
 
   /**
    * Root Mahō constructor.
-   *
-   * @param {IMahoConfig} [config] configuration options
    */
   constructor(config?: IMahoConfig) {
     this.config = config;
@@ -41,8 +29,6 @@ export abstract class MahoBase {
 
   /**
    * Configuration object accessor
-   *
-   * @type {IMahoConfig}
    */
   get config(): IMahoConfig {
     return this._config;

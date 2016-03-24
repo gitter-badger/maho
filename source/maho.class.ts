@@ -3,50 +3,25 @@ import { IMahoConfig } from './config.interface';
 
 /**
  * Mahō web component
- *
- * @export
- * @class Maho
- * @extends {MahoBase}
  */
 export class Maho extends MahoBase {
 
   /**
    * Mahō base node
-   *
-   * @private
-   * @type {Element}
    */
-  private node: Element;
+  private node: HTMLElement;
 
   /**
    * Creates an instance of Mahō.
-   *
-   * @param {string} selector css selector for target element
-   * @param {IMahoConfig} [config] configuration options
    */
-  constructor(selector: string, config?: IMahoConfig)
-  /**
-   * Creates an instance of Mahō.
-   *
-   * @param {Element} node target element
-   * @param {IMahoConfig} [config] configuration options
-   */
-  constructor(node: Element, config?: IMahoConfig)
-  constructor(element: (Element | string), config?: IMahoConfig) {
+  constructor(node: HTMLElement, config?: IMahoConfig) {
     super(config);
 
-    if (typeof element === 'string') {
-      // todo: better selector
-      this.node = document.querySelectorAll(element)[0];
-    } else {
-      this.node = element;
-    }
+    this.node = node;
   }
 
   /**
    * Search string accessor
-   *
-   * @type {string}
    */
   get search(): string {
     return this.node.innerHTML;
