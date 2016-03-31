@@ -19,6 +19,10 @@ export abstract class MahoBase {
    * Used to filter against results
    */
   protected _search: string;
+  /**
+   * Method to be used for retrieving data
+   */
+  protected /*abstract*/ fetch: () => Promise<any[]>;
 
   /**
    * Root Mahō constructor.
