@@ -35,7 +35,7 @@ export abstract class MahoBase {
    * Configuration object accessor
    */
   get config(): IMahoConfig {
-    return this._config;
+    return assign({}, this._config);
   }
 
   set config(value: IMahoConfig) {
