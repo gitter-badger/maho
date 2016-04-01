@@ -1,3 +1,5 @@
+webpack = require('webpack');
+
 module.exports = {
   entry: './source/main.ts',
   output: {
@@ -12,15 +14,15 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts-loader'
-      },
-      { test: /\.json$/,
-        loader: 'json-loader'
       }
-    ],
-    noParse: /node_modules\/json-schema\/lib\/validate\.js/
+    ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    })
+  ],
   node: {
-    console: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty'

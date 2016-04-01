@@ -20,16 +20,23 @@ export abstract class MahoBase {
    */
   protected _search: string;
   /**
-   * Method to be used for retrieving data
+   * Data source
+   * May be changed at any time
    */
-  protected /*abstract*/ fetch: () => Promise<any[]>;
+  public source: any;
 
   /**
    * Root Mahō constructor.
    */
-  constructor(config?: IMahoConfig) {
+  constructor(source, config?: IMahoConfig) {
+    this.source = source;
     this.config = config;
   }
+
+  /**
+   * Method to be used for retrieving data
+   */
+  protected abstract fetch(): Promise<any[]>
 
   /**
    * Configuration object accessor

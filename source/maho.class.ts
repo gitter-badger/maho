@@ -1,6 +1,5 @@
 import { MahoBase } from './base.class';
 import { IMahoConfig } from './config.interface';
-import * as request from 'request';
 import { debounce } from 'underscore';
 
 /**
@@ -18,23 +17,12 @@ export class Maho extends MahoBase {
    */
   constructor(
     node: HTMLInputElement,
-    source?: string | any[],
+    source: any,
     config?: IMahoConfig
   ) {
-    super(config);
+    super(source, config);
 
     this.node = node;
-
-    // TODO: move this in a function
-    if (typeof source === 'string') {
-      this.fetch = () => new Promise<any[]>(function(resolve, reject) {
-        request(`${location.protocol}//${location.host}/${source}`, function(error, response, body) {
-          resolve(JSON.parse(body));
-        });
-      });
-    } else {
-      this.fetch = () => Promise.resolve(source);
-    }
 
     this.bind();
   }
@@ -50,6 +38,20 @@ export class Maho extends MahoBase {
     this.node.value = value;
   }
 
+  /**
+   * Method to be used for retrieving data
+   */
+  protected fetch(): Promise<any[]> {
+    if (typeof this.source === 'string') {
+      return fetch(this.source).then(response => response.json());
+    } else {
+      return Promise.resolve(this.source);
+    }
+  }
+
+  /**
+   * Filters response against input
+   */
   private async match() {
     let results = await this.fetch();
     console.log(results);
