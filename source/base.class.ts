@@ -39,6 +39,14 @@ export abstract class MahoBase {
   protected abstract fetch(): Promise<any[]>
 
   /**
+   * Filters response against input
+   */
+  protected async match() {
+    let results = await this.fetch();
+    console.log(results);
+  }
+
+  /**
    * Configuration object accessor
    */
   get config(): IMahoConfig {

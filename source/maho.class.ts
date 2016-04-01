@@ -42,19 +42,17 @@ export class Maho extends MahoBase {
    * Method to be used for retrieving data
    */
   protected fetch(): Promise<any[]> {
-    if (typeof this.source === 'string') {
-      return fetch(this.source).then(response => response.json());
-    } else {
-      return Promise.resolve(this.source);
-    }
-  }
+    let data: Promise<any[]>;
 
-  /**
-   * Filters response against input
-   */
-  private async match() {
-    let results = await this.fetch();
-    console.log(results);
+    if (typeof this.source === 'string') {
+      data = fetch(this.source).then(response => response.json());
+    } else {
+      data = Promise.resolve(this.source);
+    }
+
+    return data.then(Array.from).catch(
+      () => Promise.reject('invalid source or source response')
+    );
   }
 
   /**
