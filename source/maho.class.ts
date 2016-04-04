@@ -11,6 +11,15 @@ import { defaultConfig } from './default.const';
 export class Maho {
 
   /**
+   * Mahō global instance counter
+   */
+  private static _id: number = 1;
+
+  public static get id(): number {
+    return this._id++;
+  }
+
+  /**
    * Data source
    * May be changed at any time
    */
@@ -29,9 +38,20 @@ export class Maho {
   protected _search: string;
 
   /**
+   * Mahō-managed list element
+   * Used in case none is provided
+   */
+  protected _listElement: HTMLDivElement;
+
+  /**
    * Mahō base node
    */
   private node: HTMLInputElement;
+
+  /**
+   * Instance id
+   */
+  private id: number = Maho.id;
 
   /**
    * Creates an instance of Mahō.
@@ -42,6 +62,8 @@ export class Maho {
     config?: IMahoConfig
   ) {
     this.node = node;
+    this.node.id = `maho${this.id}`;
+
     this.source = source;
     this.config = config;
 
@@ -71,6 +93,28 @@ export class Maho {
   }
 
   /**
+   * Results list accessor
+   */
+  public get listElement(): HTMLElement {
+    // try to use configuration-defined element
+    // if not, use our own
+    if (this._config.listElement instanceof HTMLElement) {
+      return this._config.listElement;
+    } else {
+      // create an element if not already done so
+      if (this._listElement === void 0) {
+        let listElement = document.createElement('div');
+
+        listElement.id = `maho${this.id}_list`;
+
+        document.body.appendChild(listElement);
+        this._listElement = listElement;
+      }
+      return this._listElement;
+    }
+  }
+
+  /**
    * Method to be used for retrieving data
    */
   protected fetch(): Promise<any[]> {
@@ -96,7 +140,37 @@ export class Maho {
    */
   protected async match() {
     let results = await this.fetch();
-    console.log(results);
+
+    // write the new list to the DOM
+    this.clearList();
+    this.listElement.appendChild(this.makeListContent(results));
+  }
+
+  /**
+   * Clears the results list
+   */
+  private clearList() {
+    let listElement = this.listElement;
+    while (listElement.firstChild) {
+      listElement.removeChild(listElement.firstChild);
+    }
+  }
+
+  /**
+   * Transforms an array into a DOM list
+   */
+  private makeListContent(list: any[]): DocumentFragment {
+    // converge the array into a document fragment
+    return list.reduce(
+      (fragment, value) => {
+        let item = document.createElement(this._config.itemElement);
+        item.innerText = value;
+
+        fragment.appendChild(item);
+        return fragment;
+      },
+      document.createDocumentFragment()
+    );
   }
 
   /**
