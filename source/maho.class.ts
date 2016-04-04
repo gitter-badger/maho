@@ -1,6 +1,6 @@
 /// <reference path="../typings/main.d.ts" />
 
-import { assign, debounce } from 'underscore';
+import { assign, debounce, toArray } from 'underscore';
 
 import { IMahoConfig } from './config.interface';
 import { defaultConfig } from './default.const';
@@ -82,7 +82,7 @@ export class Maho {
       data = Promise.resolve(this.source);
     }
 
-    return data.then(Array.from).catch(
+    return data.then(toArray).catch(
       () => Promise.reject('invalid source or source response')
     );
   }
