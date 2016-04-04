@@ -1,11 +1,32 @@
-import { MahoBase } from './base.class';
+/// <reference path="../typings/main.d.ts" />
+
+import { assign, debounce } from 'underscore';
+
 import { IMahoConfig } from './config.interface';
-import { debounce } from 'underscore';
+import { defaultConfig } from './default.const';
 
 /**
  * Mahō web component
  */
-export class Maho extends MahoBase {
+export class Maho {
+
+  /**
+   * Data source
+   * May be changed at any time
+   */
+  public source: any;
+
+  /**
+   * Mahō internal configuration object
+   * Dictates how the component behaves
+   */
+  protected _config: IMahoConfig;
+
+  /**
+   * Mahō internal search string
+   * Used to filter against results
+   */
+  protected _search: string;
 
   /**
    * Mahō base node
@@ -15,26 +36,37 @@ export class Maho extends MahoBase {
   /**
    * Creates an instance of Mahō.
    */
-  constructor(
+  public constructor(
     node: HTMLInputElement,
     source: any,
     config?: IMahoConfig
   ) {
-    super(source, config);
-
     this.node = node;
+    this.source = source;
+    this.config = config;
 
     this.bind();
   }
 
   /**
+   * Configuration object accessor
+   */
+  public get config(): IMahoConfig {
+    return assign({}, this._config);
+  }
+
+  public set config(value: IMahoConfig) {
+    this._config = assign({}, defaultConfig, value);
+  }
+
+  /**
    * Search string accessor
    */
-  get search(): string {
+  public get search(): string {
     return this.node.value;
   }
 
-  set search(value: string) {
+  public set search(value: string) {
     this.node.value = value;
   }
 
@@ -56,11 +88,19 @@ export class Maho extends MahoBase {
   }
 
   /**
+   * Filters response against input
+   */
+  protected async match() {
+    let results = await this.fetch();
+    console.log(results);
+  }
+
+  /**
    * Binds the event handlers to the input field
    */
   private bind() {
     this.node.addEventListener(
-      "keyup",
+      'keyup',
       debounce(this.onkeyup.bind(this), this.config.delay)
     );
   }

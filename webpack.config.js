@@ -14,6 +14,10 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts-loader'
+      },
+      {
+        test: /\.ts$/,
+        loader: "tslint"
       }
     ]
   },
@@ -26,5 +30,14 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty'
+  },
+  tslint: {
+    configuration: {
+      rules: {
+        quotemark: [true, "single"]
+      }
+    },
+    emitErrors: false,
+    failOnHint: false
   }
-};
+}
