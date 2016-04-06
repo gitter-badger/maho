@@ -2,3 +2,12 @@
   position: absolute;
   border: 1px solid grey;
 }
+
+.maho-list.maho-hide {
+  display: none;
+}
+
+.maho-active {
+  background: indianred;
+  color: white;
+}

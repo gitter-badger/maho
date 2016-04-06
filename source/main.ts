@@ -12,3 +12,7 @@ let maho3: Maho = new Maho(
   <HTMLInputElement>document.getElementById('demo3'),
   'http://ron-swanson-quotes.herokuapp.com/v2/quotes'
 );
+let maho4: Maho = new Maho(
+  <HTMLInputElement>document.getElementById('demo4'),
+  'spells.json'
+);

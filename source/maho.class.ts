@@ -3,6 +3,7 @@
 import { assign, debounce, flatten, toArray } from 'underscore';
 
 import { IMahoConfig } from './config.interface';
+import { Key } from './key.enum';
 import { defaultConfig } from './default.const';
 
 /**
@@ -35,7 +36,7 @@ export class Maho {
    * Mahō internal search string
    * Used to filter against results
    */
-  protected _search: string;
+  protected _search: string = '';
 
   /**
    * Mahō-managed list element
@@ -52,6 +53,11 @@ export class Maho {
    * Instance id
    */
   private id: number = Maho.id;
+
+  /**
+   * Whether the input value has been altered
+   */
+  private dirty: Boolean = false;
 
   /**
    * Creates an instance of Mahō.
@@ -108,10 +114,6 @@ export class Maho {
         listElement.id = `maho${this.id}-list`;
         listElement.className = 'maho-list';
 
-        listElement.style.top = this.node.offsetTop + this.node.offsetHeight + 'px';
-        listElement.style.left = this.node.offsetLeft + 'px';
-        listElement.style.width = this.node.offsetWidth + 'px';
-
         document.body.appendChild(listElement);
         this._listElement = listElement;
       }
@@ -147,18 +149,37 @@ export class Maho {
     let results = await this.fetch();
 
     // write the new list to the DOM
-    this.clearList();
+    this.listClear();
     this.listElement.appendChild(this.makeListContent(results));
+    this.listShow();
   }
 
   /**
    * Clears the results list
    */
-  private clearList() {
+  private listClear() {
     let listElement = this.listElement;
     while (listElement.firstChild) {
       listElement.removeChild(listElement.firstChild);
     }
+  }
+
+  /**
+   * Shows the list of results
+   */
+  private listShow() {
+    this.listElement.className = 'maho-list';
+    this.listElement.style.top = this.node.offsetTop
+      + this.node.offsetHeight + 'px';
+    this.listElement.style.left = this.node.offsetLeft + 'px';
+    this.listElement.style.width = this.node.offsetWidth + 'px';
+  }
+
+  /**
+   * Shows the list of results
+   */
+  private listHide() {
+    this.listElement.className = 'maho-list maho-hide';
   }
 
   /**
@@ -184,17 +205,155 @@ export class Maho {
    */
   private bind() {
     this.node.addEventListener(
+      'keydown',
+      this.onkeydown.bind(this)
+    );
+    this.node.addEventListener(
       'keyup',
       debounce(this.onkeyup.bind(this), this.config.delay)
     );
   }
 
   /**
+   * Event handler for keydown
+   */
+  private onkeydown(event: KeyboardEvent) {
+    switch (event.keyCode) {
+      case Key.DOWN_ARROW:
+        event.preventDefault();
+        return this.cursorDown();
+      case Key.UP_ARROW:
+        event.preventDefault();
+        return this.cursorUp();
+      case Key.PAGE_DOWN:
+        event.preventDefault();
+        return this.cursorEnd();
+      case Key.PAGE_UP:
+        event.preventDefault();
+        return this.cursorStart();
+      case Key.ESCAPE:
+        event.preventDefault();
+        return this.listHide();
+      default:
+        if (this.dirty) {
+          this.cursorClear();
+        }
+        return;
+    }
+  }
+
+  /**
    * Event handler for keyup
    */
-  private onkeyup() {
-    console.log(`you searched for '${this.search}'`);
-    this.match();
+  private onkeyup(event: KeyboardEvent) {
+    switch (event.keyCode) {
+      case Key.DOWN_ARROW:
+      case Key.UP_ARROW:
+      case Key.PAGE_UP:
+      case Key.PAGE_DOWN:
+      case Key.ESCAPE:
+        return;
+      default:
+        this._search = this.search;
+        this.match();
+    }
+  }
+
+  /**
+   * Returns the active list item
+   */
+  private cursorSelect(): Element {
+    let active = this.listElement.getElementsByClassName('maho-active');
+    if (active.length) {
+      return active[0];
+    }
+    return null;
+  }
+
+  /**
+   * Removes the cursor
+   */
+  private cursorClear() {
+    let cursor = this.cursorSelect();
+    this.search = this._search;
+    this.dirty = false;
+
+    if (cursor) {
+      cursor.className = '';
+    }
+  }
+
+  /**
+   * Moves the cursor at the start of the list
+   */
+  private cursorStart() {
+    this.cursorClear();
+
+    if (this.listElement.hasChildNodes) {
+      let first = <Element>this.listElement.childNodes[0];
+      first.className = 'maho-active';
+
+      this.search = first.innerHTML;
+      this.dirty = true;
+    }
+  }
+
+  private cursorEnd() {
+    this.cursorClear();
+
+    if (this.listElement.hasChildNodes) {
+      let last = <Element>this.listElement.childNodes[
+        this.listElement.childNodes.length - 1
+      ];
+      last.className = 'maho-active';
+
+      this.search = last.innerHTML;
+      this.dirty = true;
+    }
+  }
+
+  /**
+   * Moves the cursor downward
+   */
+  private cursorDown() {
+    let cursor = this.cursorSelect();
+
+    if (cursor) {
+      if (cursor.nextSibling) {
+        cursor.className = '';
+        cursor = <Element>cursor.nextSibling;
+        cursor.className = 'maho-active';
+
+        this.search = cursor.innerHTML;
+        this.dirty = true;
+      } else {
+        this.cursorClear();
+      }
+    } else {
+      return this.cursorStart();
+    }
+  }
+
+  /**
+   * Moves the cursor upward
+   */
+  private cursorUp() {
+    let cursor = this.cursorSelect();
+
+    if (cursor) {
+      if (cursor.previousSibling) {
+        cursor.className = '';
+        cursor = <Element>cursor.previousSibling;
+        cursor.className = 'maho-active';
+
+        this.search = cursor.innerHTML;
+        this.dirty = true;
+      } else {
+        this.cursorClear();
+      }
+    } else {
+      return this.cursorEnd();
+    }
   }
 
 }
