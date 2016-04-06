@@ -105,7 +105,12 @@ export class Maho {
       if (this._listElement === void 0) {
         let listElement = document.createElement('div');
 
-        listElement.id = `maho${this.id}_list`;
+        listElement.id = `maho${this.id}-list`;
+        listElement.className = 'maho-list';
+
+        listElement.style.top = this.node.offsetTop + this.node.offsetHeight + 'px';
+        listElement.style.left = this.node.offsetLeft + 'px';
+        listElement.style.width = this.node.offsetWidth + 'px';
 
         document.body.appendChild(listElement);
         this._listElement = listElement;
@@ -164,6 +169,7 @@ export class Maho {
     return list.reduce(
       (fragment, value) => {
         let item = document.createElement(this._config.itemElement);
+        item.className = 'maho-list-item';
         item.innerText = value;
 
         fragment.appendChild(item);

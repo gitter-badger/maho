@@ -7,5 +7,5 @@ import { TimeUnit } from './time.enum';
 export const defaultConfig: IMahoConfig = {
   delay: 300 * TimeUnit.MILLISECONDS,
   // listElement?
-  itemElement: 'span'
+  itemElement: 'div'
 };
