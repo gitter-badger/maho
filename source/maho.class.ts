@@ -180,7 +180,7 @@ export class Maho extends Matcher {
   }
 
   /**
-   * Shows the list of results
+   * Hides the list of results
    */
   private listHide() {
     this.listElement.className = 'maho-list maho-hide';
@@ -320,6 +320,9 @@ export class Maho extends Matcher {
     }
   }
 
+  /**
+   * Moves the cursor at the end of the list
+   */
   private cursorEnd() {
     this.cursorClear();
 
