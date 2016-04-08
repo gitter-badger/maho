@@ -7,20 +7,20 @@ export class Matcher {
    */
   public static matchStart: IMatcher = (search, value) => {
     return RegExp(`^${search}`, 'i').test(value);
-  }
+  };
 
   /**
    * The search string may be found anywhere within the value
    */
   public static matchAnywhere: IMatcher = (search, value) => {
     return RegExp(`${search}`, 'i').test(value);
-  }
+  };
 
   /**
    * The search string and the value must be identical
    */
   public static matchExactly: IMatcher = (search, value) => {
     return RegExp(`^${search}$`, 'i').test(value);
-  }
+  };
 
 }
