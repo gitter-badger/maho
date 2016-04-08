@@ -1,4 +1,5 @@
 import { IMahoConfig } from './config.interface';
+import { Matcher } from './matcher.class';
 import { TimeUnit } from './time.enum';
 
 /**
@@ -7,5 +8,6 @@ import { TimeUnit } from './time.enum';
 export const defaultConfig: IMahoConfig = {
   delay: 300 * TimeUnit.MILLISECONDS,
   // listElement?
-  itemElement: 'div'
+  itemElement: 'div',
+  matcher: Matcher.matchAnywhere
 };

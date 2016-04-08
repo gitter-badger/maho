@@ -4,12 +4,13 @@ import { assign, debounce, flatten, toArray } from 'underscore';
 
 import { IMahoConfig } from './config.interface';
 import { Key } from './key.enum';
+import { Matcher } from './matcher.class';
 import { defaultConfig } from './default.const';
 
 /**
  * Mahō web component
  */
-export class Maho {
+export class Maho extends Matcher {
 
   /**
    * Mahō global instance counter
@@ -67,6 +68,8 @@ export class Maho {
     source: any,
     config?: IMahoConfig
   ) {
+    super();
+
     this.node = node;
     this.node.id = `maho${this.id}`;
 
@@ -147,10 +150,11 @@ export class Maho {
    */
   protected async match() {
     let results = await this.fetch();
+    let hits = results.filter(this.config.matcher.bind(this, this.search));
 
     // write the new list to the DOM
     this.listClear();
-    this.listElement.appendChild(this.makeListContent(results));
+    this.listElement.appendChild(this.makeListContent(hits));
     this.listShow();
   }
 
@@ -233,6 +237,11 @@ export class Maho {
         return this.cursorStart();
       case Key.ESCAPE:
         event.preventDefault();
+        this.cursorClear();
+        return this.listHide();
+      case Key.ENTER:
+        event.preventDefault();
+        this.cursorApply();
         return this.listHide();
       default:
         if (this.dirty) {
@@ -252,6 +261,7 @@ export class Maho {
       case Key.PAGE_UP:
       case Key.PAGE_DOWN:
       case Key.ESCAPE:
+      case Key.ENTER:
         return;
       default:
         this._search = this.search;
@@ -268,6 +278,18 @@ export class Maho {
       return active[0];
     }
     return null;
+  }
+
+  /**
+   * Makes the cursor the active selection
+   */
+  private cursorApply() {
+    let cursor = this.cursorSelect();
+
+    if (cursor) {
+      this._search = this.search;
+      this.cursorClear();
+    }
   }
 
   /**

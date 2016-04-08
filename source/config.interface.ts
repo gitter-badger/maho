@@ -1,3 +1,5 @@
+import { IMatcher } from './matcher.interface';
+
 /**
  * Configuration options for Mahō
  */
@@ -16,4 +18,8 @@ export interface IMahoConfig {
    * Type of elements to be created
    */
   itemElement?: string
+  /**
+   * How to filter the results
+   */
+  matcher?: IMatcher
 }
