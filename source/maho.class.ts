@@ -58,7 +58,7 @@ export class Maho extends Matcher {
   /**
    * Whether the input value has been altered
    */
-  private dirty: Boolean = false;
+  private dirty: boolean = false;
 
   /**
    * Creates an instance of Mahō.
