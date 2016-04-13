@@ -17,6 +17,14 @@ export class Matcher {
   };
 
   /**
+   * The search string may be found anywhere within the value, allowing gaps
+   */
+  public static matchAnywhereSparse: IMatcher = (search, value) => {
+    return RegExp(`${search.replace(/./gi, '$&.*')}`, 'i')
+      .test(value);
+  };
+
+  /**
    * The search string and the value must be identical
    */
   public static matchExactly: IMatcher = (search, value) => {
