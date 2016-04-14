@@ -1,5 +1,3 @@
-/// <reference path="../typings/main.d.ts" />
-
 import { assign, debounce, flatten, toArray } from 'underscore';
 
 import { IMahoConfig } from './config.interface';
