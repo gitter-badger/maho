@@ -117,7 +117,7 @@ export class Maho extends Matcher {
 
         listElement.addEventListener('mouseover', (event: MouseEvent) => {
           if (event.target !== listElement) {
-            this.cursorTo(<Element>event.target);
+            this.cursorTo(event.target as Element);
           }
         });
         listElement.addEventListener('mouseout', (event: MouseEvent) => {
@@ -328,7 +328,7 @@ export class Maho extends Matcher {
     this.cursorClear();
 
     if (this.listElement.hasChildNodes) {
-      let first = <Element>this.listElement.childNodes[0];
+      let first = this.listElement.childNodes[0] as Element;
       first.className = 'maho-active';
 
       this.search = first.innerHTML;
@@ -343,9 +343,9 @@ export class Maho extends Matcher {
     this.cursorClear();
 
     if (this.listElement.hasChildNodes) {
-      let last = <Element>this.listElement.childNodes[
+      let last = this.listElement.childNodes[
         this.listElement.childNodes.length - 1
-      ];
+      ] as Element;
       last.className = 'maho-active';
 
       this.search = last.innerHTML;
@@ -362,7 +362,7 @@ export class Maho extends Matcher {
     if (cursor) {
       if (cursor.nextSibling) {
         cursor.className = '';
-        cursor = <Element>cursor.nextSibling;
+        cursor = cursor.nextSibling as Element;
         cursor.className = 'maho-active';
 
         this.search = cursor.innerHTML;
@@ -384,7 +384,7 @@ export class Maho extends Matcher {
     if (cursor) {
       if (cursor.previousSibling) {
         cursor.className = '';
-        cursor = <Element>cursor.previousSibling;
+        cursor = cursor.previousSibling as Element;
         cursor.className = 'maho-active';
 
         this.search = cursor.innerHTML;
