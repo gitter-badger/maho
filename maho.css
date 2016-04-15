@@ -3,6 +3,10 @@
   border: 1px solid grey;
 }
 
+.maho-list-item {
+  color: rgba(40, 40, 40);
+}
+
 .maho-list.maho-hide {
   display: none;
 }

@@ -115,6 +115,24 @@ export class Maho extends Matcher {
         listElement.id = `maho${this.id}-list`;
         listElement.className = 'maho-list';
 
+        listElement.addEventListener('mouseover', (event: MouseEvent) => {
+          if (event.target !== listElement) {
+            this.cursorTo(<Element>event.target);
+          }
+        });
+        listElement.addEventListener('mouseout', (event: MouseEvent) => {
+          if (event.target === listElement) {
+            console.log('clear');
+            this.cursorClear();
+          }
+        });
+        listElement.addEventListener('click', (event: MouseEvent) => {
+          if (event.target !== listElement) {
+            this.cursorApply();
+            this.listHide();
+          }
+        });
+
         document.body.appendChild(listElement);
         this._listElement = listElement;
       }
@@ -377,6 +395,17 @@ export class Maho extends Matcher {
     } else {
       return this.cursorEnd();
     }
+  }
+
+  /**
+   * Moves the cursor to the target element
+   */
+  private cursorTo(element: Element) {
+    this.cursorClear();
+    element.className = 'maho-active';
+
+    this.search = element.innerHTML;
+    this.dirty = true;
   }
 
 }
