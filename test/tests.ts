@@ -19,13 +19,16 @@ const spells = {
 describe('Matchers', () => {
   describe('matchStart', () => {
     const matcher = Matcher.matchStart;
+    const test = 'Dragon Slave';
 
-    it('Matches start of string', () => {
-      let search = 'D';
-      let match = spells.lina.filter((v) => matcher(search, v)); // umm...
-      expect(match).to.deep
-        .equal(['Demonic Crystal', 'Digger Volt', 'Dragon Slave']);
+    it('should match start of string', () => {
+      expect(matcher('D', test)).to.be.true;
     });
+
+    it('should not match just start of word', () => {
+      expect(matcher('S', test)).to.be.false;
+    });
+
   });
 
   describe('matchAnywhere', () => { });
