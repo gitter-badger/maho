@@ -1,21 +1,6 @@
 import {expect} from 'chai';
 import {Matcher} from '../source/matcher.class';
 
-const spells = {
-  'lina': [
-    'Bram Gush',
-    'Burst Flare',
-    'Demonic Crystal',
-    'Digger Volt',
-    'Dragon Slave',
-    'Fireball',
-    'Giga Slave',
-    'Laguna Blade',
-    'Ra Tilt',
-    'Van Rehl'
-  ]
-};
-
 describe('Matchers', () => {
   describe('matchStart', () => {
     const matcher = Matcher.matchStart;
