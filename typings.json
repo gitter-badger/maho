@@ -1,11 +1,16 @@
 {
   "name": "maho",
   "version": false,
-  "dependencies": {},
+  "dependencies": {
+    "chai": "registry:npm/chai#3.5.0+20160415060238"
+  },
   "ambientDependencies": {
     "bluebird": "registry:dt/bluebird#2.0.0+20160319051630",
     "node": "registry:dt/node#4.0.0+20160330064709",
     "underscore": "registry:dt/underscore#1.7.0+20160316155526",
     "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160316155526"
+  },
+  "ambientDevDependencies": {
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
   }
 }

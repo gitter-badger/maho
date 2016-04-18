@@ -1,10 +1,13 @@
 webpack = require('webpack');
 
 module.exports = {
-  entry: './source/main.ts',
+  entry: {
+    'maho': './source/main.ts',
+    'tests': './test/tests.ts'
+  },
   output: {
     path: 'dist',
-    filename: 'maho.js'
+    filename: '[name].js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.ts', '.js']
