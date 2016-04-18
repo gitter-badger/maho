@@ -22,8 +22,9 @@ describe('Matchers', () => {
 
     it('Matches start of string', () => {
       let search = 'D';
-      // let match = spells.lina.filter()
-      expect(matcher('D', spells.lina[3])).to.be.true;
+      let match = spells.lina.filter((v) => matcher(search, v)); // umm...
+      expect(match).to.deep
+        .equal(['Demonic Crystal', 'Digger Volt', 'Dragon Slave']);
     });
   });
 
