@@ -2,8 +2,8 @@ webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'maho': './source/main.ts',
-    'tests': './test/tests.ts'
+    maho: './source/main.ts',
+    tests: './test/tests.ts'
   },
   output: {
     path: 'dist',
@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        loader: "tslint"
+        loader: 'tslint'
       }
     ]
   },
