@@ -37,7 +37,7 @@ module.exports = {
   tslint: {
     configuration: {
       rules: {
-        quotemark: [true, "single"]
+        quotemark: [true, 'single']
       }
     },
     emitErrors: false,
