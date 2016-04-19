@@ -4,9 +4,9 @@
   "description": "Fast autocomplete provider.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --colors && npm run test",
+    "build": "webpack --progress --colors && npm test",
     "watch": "webpack -w",
-    "test": "mocha dist/tests.js"
+    "test": "webpack && mocha dist/tests.js"
   },
   "repository": {
     "type": "git",
@@ -33,11 +33,13 @@
   "homepage": "https://github.com/wanderer06/maho#readme",
   "dependencies": {
     "bluebird": "^3.3.5",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
     "ts-loader": "^0.8.2",
     "tslint": "^3.7.4",
     "typescript": "^1.8.10",
     "underscore": "^1.8.3",
-    "webpack": "1.12.14",
+    "webpack": "^1.13.0",
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
